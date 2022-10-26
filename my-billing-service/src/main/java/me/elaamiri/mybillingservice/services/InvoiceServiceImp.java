@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -29,6 +30,10 @@ public class InvoiceServiceImp implements InvoiceService{
     @Override
     public List<InvoiceResponseDTO> getInvoicesList(int page, int size) {
         List<Invoice> invoiceList = invoiceRepository.findAll(PageRequest.of(page, size)).getContent();
+        return getInvoiceResponseDTOS(invoiceList);
+    }
+
+    private List<InvoiceResponseDTO> getInvoiceResponseDTOS(List<Invoice> invoiceList) {
         List<InvoiceResponseDTO> invoiceResponseDTOList = invoiceList.stream().map(
                 invoice -> {
                     Customer customer = customerServiceRestClient.getCustomerById(invoice.getCustomerID());
@@ -53,6 +58,9 @@ public class InvoiceServiceImp implements InvoiceService{
     public InvoiceResponseDTO saveInvoice(InvoiceRequestDTO invoiceRequestDTO) {
         Invoice invoice = invoiceMapper.toInvoice(invoiceRequestDTO);
         invoice.setId(UUID.randomUUID().toString());
+        invoice.setDate(new Date());
+
+        // referential integrity check (validation)
         Customer customer = customerServiceRestClient.getCustomerById(invoiceRequestDTO.getCustomerId());
         if (customer == null) throw new RuntimeException(String.format("Can Not Find Customer with ID: %s", invoiceRequestDTO.getCustomerId()));
         invoice.setCustomer(customer);
@@ -80,14 +88,6 @@ public class InvoiceServiceImp implements InvoiceService{
     @Override
     public List<InvoiceResponseDTO> getInvoicesListByCustomer(String customerId, int page, int size) {
         List<Invoice> invoiceList = invoiceRepository.findByCustomerID(customerId, PageRequest.of(page, size)).getContent();
-        List<InvoiceResponseDTO> invoiceResponseDTOList = invoiceList.stream().map(
-                invoice -> {
-                    Customer customer = customerServiceRestClient.getCustomerById(invoice.getCustomerID());
-                    if (customer == null) throw new RuntimeException(String.format("Can Not Find Customer with ID: %s", invoice.getCustomerID()));
-                    invoice.setCustomer(customer);
-                    return invoiceMapper.toInvoiceResponse(invoice);
-                }
-        ).collect(Collectors.toList());
-        return invoiceResponseDTOList;
+        return getInvoiceResponseDTOS(invoiceList);
     }
 }
