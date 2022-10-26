@@ -6,6 +6,7 @@ import me.elaamiri.customerservice.dtos.CustomerResponseDTO;
 import me.elaamiri.customerservice.services.CustomerService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,13 +28,13 @@ public class CustomerController {
     }
 
     @PostMapping("/")
-    public CustomerResponseDTO insertCustomer(@RequestBody CustomerRequestDTO customerRequestDTO){
+    public CustomerResponseDTO insertCustomer(@RequestBody @Valid CustomerRequestDTO customerRequestDTO){
         return customerService.saveCustomer(customerRequestDTO);
     }
 
     @PutMapping("/{customerId}")
     public CustomerResponseDTO updateCustomer(@PathVariable(name = "customerId") String id,
-                                              @RequestBody CustomerRequestDTO customerRequestDTO){
+                                              @RequestBody @Valid CustomerRequestDTO customerRequestDTO){
         return customerService.updateCustomer(id, customerRequestDTO);
     }
 

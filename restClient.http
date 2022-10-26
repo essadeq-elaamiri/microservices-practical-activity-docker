@@ -1,0 +1,28 @@
+@hostname = localhost
+@port = 8082
+@contentType = application/json
+@baseUrl = http://{{hostname}}:{{port}}/api-v1/customers/
+POST {{baseUrl}} HTTP/1.1
+Content-Type: {{contentType}}
+
+{
+    "name":"Laila",
+    "email":"laila@gmail.com"
+}
+
+# edit
+
+
+PUT {{baseUrl}}2faa2db6-47b2-47b8-8580-5918cd0a07bc HTTP/1.1
+Content-Type: {{contentType}}
+
+{  
+    "name":"khadija",
+    "email":"khadija@gmail.com"
+}
+ 
+## missing request body  ????
+
+# list all 
+
+GET {{baseUrl}} HTTP/1.1
