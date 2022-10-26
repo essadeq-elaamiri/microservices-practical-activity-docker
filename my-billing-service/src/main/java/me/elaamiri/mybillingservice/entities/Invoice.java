@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.elaamiri.mybillingservice.entities.helperModels.Customer;
 import org.springframework.data.annotation.Transient;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
