@@ -11,8 +11,9 @@ import java.util.Date;
 
 @Data
 public class InvoiceRequestDTO {
-    private String id;
-    private Date date;
+    //private String id; // generated automatically , no need
+    // private Date date; // generated automatically , no need
     private BigDecimal amount;
+    private String customerId;
 
 }
