@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootApplication
 public class CustomerServiceApplication {
@@ -23,7 +24,8 @@ public class CustomerServiceApplication {
 			// Create just 2 customers
 
 			List.of("Ahmed", "Essadeq").forEach( c ->{
-				Customer customer = new Customer(null, c, String.format("%s_email@gmail.com", c));
+				Customer customer = new Customer(UUID.randomUUID().toString(), c, String.format("%s_email@gmail.com", c));
+				customerRepository.save(customer);
 			});
 		};
 	}
