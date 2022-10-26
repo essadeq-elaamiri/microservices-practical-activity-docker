@@ -1,5 +1,7 @@
 package me.elaamiri.customerservice;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 import me.elaamiri.customerservice.entities.Customer;
 import me.elaamiri.customerservice.repositories.CustomerRepository;
 import me.elaamiri.customerservice.services.CustomerService;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @SpringBootApplication
+@OpenAPIDefinition(info = @Info(title = "APIs", version = "1.0", description = "Documentation APIs v1.0"))
 public class CustomerServiceApplication {
 
 	public static void main(String[] args) {
