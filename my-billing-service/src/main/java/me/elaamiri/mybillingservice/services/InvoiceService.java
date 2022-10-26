@@ -19,6 +19,6 @@ public interface InvoiceService {
     // delete
     boolean deleteInvoice(String id);
     // get customer's invoices
-    List<InvoiceResponseDTO> getInvoicesListByCustomer(String customerId);
+    List<InvoiceResponseDTO> getInvoicesListByCustomer(String customerId, int page, int size);
 
 }
