@@ -5,12 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.elaamiri.mybillingservice.entities.helperModels.Customer;
-import org.springframework.data.annotation.Transient;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.util.Date;
