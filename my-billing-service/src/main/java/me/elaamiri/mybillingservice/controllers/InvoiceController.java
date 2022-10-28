@@ -13,7 +13,6 @@ import java.util.List;
 @RequestMapping(path = "/api-v1/invoices")
 @AllArgsConstructor
 public class InvoiceController {
-
     InvoiceService invoiceService;
 
     // list pagination
@@ -44,12 +43,11 @@ public class InvoiceController {
 
     // update
     @PostMapping("/{invoiceId}")
-    public InvoiceResponseDTO updateInvoice(@RequestBody @Valid InvoiceRequestDTO invoiceRequestDTO,
-                                            @PathVariable String invoiceId){
+    public InvoiceResponseDTO updateInvoice(@PathVariable String invoiceId,@RequestBody @Valid InvoiceRequestDTO invoiceRequestDTO){
         return invoiceService.updateInvoice(invoiceId, invoiceRequestDTO);
     }
     // delete
-    @PostMapping("/{invoiceId}")
+    @DeleteMapping("/{invoiceId}")
     public boolean deleteInvoice(@PathVariable String invoiceId){
         return invoiceService.deleteInvoice(invoiceId);
     }
