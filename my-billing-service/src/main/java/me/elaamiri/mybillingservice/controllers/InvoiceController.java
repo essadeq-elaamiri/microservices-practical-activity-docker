@@ -42,7 +42,7 @@ public class InvoiceController {
     }
 
     // update
-    @PostMapping("/{invoiceId}")
+    @PutMapping("/{invoiceId}")
     public InvoiceResponseDTO updateInvoice(@PathVariable String invoiceId,@RequestBody @Valid InvoiceRequestDTO invoiceRequestDTO){
         return invoiceService.updateInvoice(invoiceId, invoiceRequestDTO);
     }

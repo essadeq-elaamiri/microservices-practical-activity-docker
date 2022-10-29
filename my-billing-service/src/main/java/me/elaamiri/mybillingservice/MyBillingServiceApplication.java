@@ -30,9 +30,11 @@ public class MyBillingServiceApplication {
             String customerId = "96d2de30-a0dd-4243-8806-b6748e49e763";
             InvoiceRequestDTO invoiceRequestDTO = new InvoiceRequestDTO();
             invoiceRequestDTO.setAmount(BigDecimal.valueOf(17885.2));
-            invoiceRequestDTO.setCustomerId(customerId);
+            invoiceRequestDTO.setCustomerID(customerId);
+            System.out.println(customerId);
             InvoiceResponseDTO invoice = invoiceService.saveInvoice(invoiceRequestDTO);
 
+            System.out.println(invoice);
         };
     }
 }

@@ -11,6 +11,5 @@ public class InvoiceResponseDTO {
     private String id;
     private Date date;
     private BigDecimal amount;
-    private String customerId;
     private Customer customer;
 }

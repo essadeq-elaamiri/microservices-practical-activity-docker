@@ -59,12 +59,14 @@ public class InvoiceServiceImp implements InvoiceService{
         Invoice invoice = invoiceMapper.toInvoice(invoiceRequestDTO);
         invoice.setId(UUID.randomUUID().toString());
         invoice.setDate(new Date());
-
         // referential integrity check (validation)
-        Customer customer = customerServiceRestClient.getCustomerById(invoiceRequestDTO.getCustomerId());
-        if (customer == null) throw new RuntimeException(String.format("Can Not Find Customer with ID: %s", invoiceRequestDTO.getCustomerId()));
+        Customer customer = customerServiceRestClient.getCustomerById(invoiceRequestDTO.getCustomerID());
+        if (customer == null) throw new RuntimeException(String.format("Can Not Find Customer with ID: %s", invoiceRequestDTO.getCustomerID()));
+        invoice.setCustomerID(invoiceRequestDTO.getCustomerID());
         invoice.setCustomer(customer);
-        return invoiceMapper.toInvoiceResponse(invoiceRepository.save(invoice));
+        InvoiceResponseDTO invoiceResponseDTO = invoiceMapper.toInvoiceResponse(invoiceRepository.save(invoice));
+        invoiceResponseDTO.setCustomer(customer);
+        return invoiceResponseDTO;
     }
 
     @Override
@@ -72,8 +74,8 @@ public class InvoiceServiceImp implements InvoiceService{
         invoiceRepository.findById(id).orElseThrow(() -> new RuntimeException(String.format("Invoice with ID: %s Not Found !", id)));
         Invoice invoiceToSave = invoiceMapper.toInvoice(invoiceRequestDTO);
         invoiceToSave.setId(id);
-        Customer customer = customerServiceRestClient.getCustomerById(invoiceRequestDTO.getCustomerId());
-        if (customer == null) throw new RuntimeException(String.format("Can Not Find Customer with ID: %s", invoiceRequestDTO.getCustomerId()));
+        Customer customer = customerServiceRestClient.getCustomerById(invoiceRequestDTO.getCustomerID());
+        if (customer == null) throw new RuntimeException(String.format("Can Not Find Customer with ID: %s", invoiceRequestDTO.getCustomerID()));
         invoiceToSave.setCustomer(customer);
         return invoiceMapper.toInvoiceResponse(invoiceRepository.save(invoiceToSave));
     }

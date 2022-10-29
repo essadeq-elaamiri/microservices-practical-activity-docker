@@ -14,6 +14,6 @@ public class InvoiceRequestDTO {
     //private String id; // generated automatically , no need
     // private Date date; // generated automatically , no need
     private BigDecimal amount;
-    private String customerId;
+    private String customerID;
 
 }

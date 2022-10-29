@@ -20,7 +20,6 @@ public class Invoice {
     @Temporal(TemporalType.DATE)
     private Date date;
     private BigDecimal amount;
-    @NotBlank
     private String customerID;
     @Transient
     private Customer customer;
