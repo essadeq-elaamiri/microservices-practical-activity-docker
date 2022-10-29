@@ -4,21 +4,31 @@ services:
     image: elaamiri/discovery-service:first-version
     ports:
       - 8761:8761
+    
   gateway-service:
     image: elaamiri/gateway-service:first-version
     ports:
       - 8888:8888
     depends_on:
       - discovery-service
+    environment:
+      - eureka.client.service-url.defaultZone=http://discovery-service:8761/eureka
   customer-service:
     image: elaamiri/customer-service:first-version
     ports:
       - 8082:8082
+    environment:
+      - eureka.client.service-url.defaultZone=http://discovery-service:8761/eureka
     depends_on:
       - discovery-service
+      - gateway-service
   my-billing-service:
-    image:  elaamiri/my-billing-service:1.0.2
+    image:  elaamiri/my-billing-service:1.0.1
     ports:
       - 8083:8083
+    environment:
+      - eureka.client.service-url.defaultZone=http://discovery-service:8761/eureka
     depends_on:
       - discovery-service
+      - gateway-service
+      - customer-service
