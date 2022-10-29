@@ -6,6 +6,7 @@ import me.elaamiri.customerservice.dtos.CustomerResponseDTO;
 import me.elaamiri.customerservice.responses.ExceptionResponse;
 import me.elaamiri.customerservice.services.CustomerService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -45,12 +46,19 @@ public class CustomerController {
         return customerService.deleteCustomer(id);
     }
 
+    /*
     @ExceptionHandler(Exception.class)
     public ExceptionResponse exceptionHandler(Exception exception){
         ExceptionResponse exceptionResponse = new ExceptionResponse();
         exceptionResponse.setHttpStatus(HttpStatus.NOT_FOUND);
         exceptionResponse.setMessage(exception.getMessage());
         return exceptionResponse;
+    }
+    */
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> exceptionHandler(Exception exception){
+
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
