@@ -3,7 +3,9 @@ package me.elaamiri.customerservice.controllers;
 import lombok.AllArgsConstructor;
 import me.elaamiri.customerservice.dtos.CustomerRequestDTO;
 import me.elaamiri.customerservice.dtos.CustomerResponseDTO;
+import me.elaamiri.customerservice.responses.ExceptionResponse;
 import me.elaamiri.customerservice.services.CustomerService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -41,6 +43,14 @@ public class CustomerController {
     @DeleteMapping("/{customerId}")
     public boolean updateCustomer(@PathVariable(name = "customerId") String id){
         return customerService.deleteCustomer(id);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ExceptionResponse exceptionHandler(Exception exception){
+        ExceptionResponse exceptionResponse = new ExceptionResponse();
+        exceptionResponse.setHttpStatus(HttpStatus.NOT_FOUND);
+        exceptionResponse.setMessage(exception.getMessage());
+        return exceptionResponse;
     }
 
 }

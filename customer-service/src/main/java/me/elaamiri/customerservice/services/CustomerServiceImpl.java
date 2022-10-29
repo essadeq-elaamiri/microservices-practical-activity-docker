@@ -1,7 +1,7 @@
 package me.elaamiri.customerservice.services;
 
 import lombok.AllArgsConstructor;
-import me.elaamiri.customerservice.Exceptions.CustomerNotFountException;
+import me.elaamiri.customerservice.exceptions.CustomerNotFountException;
 import me.elaamiri.customerservice.dtos.CustomerRequestDTO;
 import me.elaamiri.customerservice.dtos.CustomerResponseDTO;
 import me.elaamiri.customerservice.entities.Customer;
