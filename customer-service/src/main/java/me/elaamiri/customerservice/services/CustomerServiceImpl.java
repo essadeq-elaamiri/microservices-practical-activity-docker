@@ -1,6 +1,7 @@
 package me.elaamiri.customerservice.services;
 
 import lombok.AllArgsConstructor;
+import me.elaamiri.customerservice.Exceptions.CustomerNotFountException;
 import me.elaamiri.customerservice.dtos.CustomerRequestDTO;
 import me.elaamiri.customerservice.dtos.CustomerResponseDTO;
 import me.elaamiri.customerservice.entities.Customer;
@@ -36,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository
                 .findById(id)
                 .orElseThrow( () -> {
-                    return  new  RuntimeException(String.format("Customer with ID: %s Not found !", id));
+                    return  new CustomerNotFountException(String.format("Customer with ID: %s Not found !", id));
                 });
         return customerMapper.toCustomerResponse(customer);
     }
@@ -46,7 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository
                 .findById(id)
                 .orElseThrow( () -> {
-                    return  new  RuntimeException(String.format("Customer with ID: %s Not found !", id));
+                    return  new  CustomerNotFountException(String.format("Customer with ID: %s Not found !", id));
                 });
 
         Customer customerMap = customerMapper.toCustomer(customerRequestDTO);
